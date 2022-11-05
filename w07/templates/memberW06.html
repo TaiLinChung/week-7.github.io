@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Signin</title>
+        <meta name="viewport" content="width=device-width",initial-scale="1.0" />
+<link rel="stylesheet" href="{{ url_for('static',filename='w04.css') }}" />
+        
+    </head>
+    <body>
+        <div class="head">歡迎光臨，這是會員頁</div>
+        <!-- 大改1-3 前端接收到字典形式的資料並放在標籤屬性中透過下方<scrip>串聯js -->
+        <div id="getName" d="{{record_name}} "></div>
+        <!-- 大改1-4_2 json處理完的資料回填到標籤中 -->
+        <a class="mid" href="http://127.0.0.1:3000/signout">登出系統</a>
+
+
+        <br/>
+        <hr/>
+        
+        
+        <div class="mid">以帳號查詢會員姓名</div>
+        <div class="mid">
+            <div class="mid" ><input type="text/javascript" name="message" id="searchname_input"/></div>
+            <button id="searchname_botton">查詢</button>
+        </div>
+        <div id="get_searchname"></div>
+
+
+        <br/>
+        <hr/>
+
+
+        <div class="mid">更新我的姓名</div>
+        <div class="mid">
+            <div class="mid" ><input type="text/javascript" id="updatename_input"/></div>
+            <button id="updatename_botton" onclick="submit_update()">更新</button>
+        </div>
+        <div id="get_updatename"></div>
+
+
+        <br/>
+        <hr/>
+
+
+        <div class="mid">留下訊息</div>
+        <form action="/message" method="POST"> 
+            <div class="mid">內容<input type="text/javascript" name="message"/></div>
+            <br/>
+            <div class="mid" id="more_message"><button>送出</button></div>
+        </form>
+        <div id="getHistory" d="{{record_message}} "></div>
+
+
+        
+        <script src=".\week06.js" defer></script>
+
+
+
+    </body>
+</html>
