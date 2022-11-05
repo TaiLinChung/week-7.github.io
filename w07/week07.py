@@ -17,8 +17,8 @@ app.secret_key="any string but secret"
 import mysql.connector
 mydb=mysql.connector.connect(
     host="localhost",
-    user="root",
-    password="Bb0970662139"
+    user="",
+    password=""
 )
 mycursor=mydb.cursor()
 sql="CREATE DATABASE IF NOT EXISTS signin"
