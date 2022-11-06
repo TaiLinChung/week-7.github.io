@@ -14,11 +14,12 @@ app.secret_key="any string but secret"
 
 
 ##前置作業與資料庫連線創建資料庫跟表
+
 import mysql.connector
 mydb=mysql.connector.connect(
     host="localhost",
-    user="",
-    password=""
+    user="root",
+    password="Bb0970662139"
 )
 mycursor=mydb.cursor()
 sql="CREATE DATABASE IF NOT EXISTS signin"
@@ -177,20 +178,32 @@ def apimember():
                     "username":myresult[2]
                 }
             }
+            # return ({
+            #     "data":{
+            #         "id":myresult[0],
+            #         "name":myresult[1],
+            #         "username":myresult[2]
+            #     }
+            # })
+            
             
         else:
             search={
                 "data":None
             }
+            # return ({
+            #     "data":None
+            # })
 
         return jsonify(search)
+        # return search
 #-------USE PATCH
     else:        
         new_name=request.get_json() #透過JS抓到在HTML輸入的新的名字
         new_name=new_name["name"]
-        # print("new_name",new_name)
+        print("new_name",new_name)
         # print("NULL=",new_name)
-        if new_name=="" and session["key"] != "open":
+        if new_name=="" or session["key"] != "open":
             print({"error":True})
             return {"error":True}
 
@@ -224,12 +237,12 @@ def message():
         mydb.commit()
 
     ##連結資料庫把歷史資料抓出來
-        mycursor=mydb.cursor()
-        sql_new="SELECT accounts.name,messagetable.message FROM messagetable INNER JOIN accounts ON messagetable.id_people = accounts.id_people"
-        mycursor.execute(sql_new)
-        myresult_new=mycursor.fetchall()
-        # print("myresult_new: ",myresult_new)
-        print(myresult_new[0][0])
+    mycursor=mydb.cursor()
+    sql_new="SELECT accounts.name,messagetable.message FROM messagetable INNER JOIN accounts ON messagetable.id_people = accounts.id_people"
+    mycursor.execute(sql_new)
+    myresult_new=mycursor.fetchall()
+    # print("myresult_new: ",myresult_new)
+    print(myresult_new[0][0])
 
     # return render_template("memberw06.html",record_name=session["record"]["peopleNow"],record_message=session["record"]["history"])
     return render_template("memberw06.html",record_name=session["name"],record_message=myresult_new)

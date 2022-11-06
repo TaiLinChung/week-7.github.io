@@ -11,14 +11,14 @@ document.getElementById("getName").appendChild(nameBlock);
 //處理歷史訊息
 // 取得資料
 let historyContent=document.getElementById("getHistory").getAttribute("d");
-console.log(historyContent);
+// console.log(historyContent);
 //整理成陣列
 let historyContent2=historyContent.replaceAll("(","").replaceAll(")","").replaceAll("[","").replaceAll("]","").replaceAll("'","")
 // console.log(historyContent2);
 let historyContent3=historyContent2.split(",");
-console.log(historyContent3);
+// console.log(historyContent3);
 // 取得陣列長度
-console.log(historyContent3.length);
+// console.log(historyContent3.length);
 // console.log(historyContent3[0]+historyContent3[1]);
 
 // let a="";
@@ -42,7 +42,7 @@ let searchname_botton = document.querySelector("#searchname_botton");
 // 觸發searchname事件
 function submitBtn() {
     let username = searchname_input.value;
-    fetch("http://127.0.0.1:3000/api/member?username="+String(username))
+    fetch("/api/member?username="+String(username))
     .then((res) => {
         const data = res.json();
         return data;
@@ -71,14 +71,56 @@ searchname_botton.addEventListener("click", submitBtn);
 //3.前端如何設定另一個事件再次抓取/api/member的值?不需要
 function submit_update(){
     let updatename=document.querySelector("#updatename_input");
+    // // console.log("updatename: ",updatename);
+    // if (updatename.value){
+    //     new_name={
+    //         "name":updatename.value
+    //     }
+    // // console.log("準備出事");
+    // // console.log(new_name);
+    //     fetch("/api/member/",{
+    //         method:"PATCH",
+    //         credentials:"include",
+    //         body:JSON.stringify(new_name), //使用patch方法傳遞到前端
+    //         cache:"no-cache",
+    //         headers:new Headers({
+    //             "content-type":"application/json"
+    //         })
+    //     })
+    //     .then(function(update_connect){
+    //         if(update_connect.status !== 200){
+    //             console.log("Response status was not 200",update_connect.status)
+                
+    //         }
+    //         console.log("未JSON:",update_connect)
+    //         // console.log("update_connect:",update_connect.json());
+    //         return update_connect.json()
+    //     })
+    //     .then(function(data_json){
+    //         //"ok" in data_json
+    //         console.log("data_json",data_json);
+    //         if (data_json.hasOwnProperty("ok")){
+    //             let block_name=document.querySelector("#getName");
+    //             block_name.setAttribute("class","mid");
+    //             block_name.innerHTML = updatename.value+" 歡迎登入系統";
+    //             let name_state=document.querySelector("#get_updatename");
+    //             name_state.setAttribute("class","mid");
+    //             name_state.innerHTML = "更新成功";
+
+    //         }
+
+    //     })
+    //     }
+
     new_name={
             "name":updatename.value
         }
-    // console.log(new_name);
-    fetch("http://127.0.0.1:3000/api/member",{
+    console.log("準備出事");
+    console.log(new_name);
+    fetch("/api/member/",{
         method:"PATCH",
         credentials:"include",
-        body:JSON.stringify(new_name),
+        body:JSON.stringify(new_name), //使用patch方法傳遞到前端
         cache:"no-cache",
         headers:new Headers({
             "content-type":"application/json"
@@ -89,7 +131,7 @@ function submit_update(){
             console.log("Response status was not 200",update_connect.status)
             
         }
-        // console.log("未JSON:",update_connect)
+        console.log("未JSON:",update_connect)
         // console.log("update_connect:",update_connect.json());
         return update_connect.json()
     })
