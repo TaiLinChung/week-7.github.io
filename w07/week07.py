@@ -3,6 +3,7 @@ from flask import request  #載入request物件
 from flask import render_template #載入render_template
 from flask import redirect
 from flask import session
+from flask import url_for
 
 app=Flask(
     __name__,
@@ -203,7 +204,7 @@ def apimember():
         new_name=new_name["name"]
         print("new_name",new_name)
         # print("NULL=",new_name)
-        if new_name=="" or session["key"] != "open":
+        if new_name=="" or session["keyFlag"] != "open":
             print({"error":True})
             return {"error":True}
 
@@ -254,4 +255,6 @@ def message():
 #     app.run(port=3000,debug=True)
 app.config["JSON_AS_ASCII"]=False
 app.run(port=3000)
+
+
 
